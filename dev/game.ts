@@ -16,7 +16,7 @@ class Game {
         this.car = new Car()                            //Zorgt ervoor dat de "Car"-afbeelding zichtbaar is in de game
         
         //Push aantal Bommen
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 20; i++) {
             this.bomb.push(new Bomb(this))              //In de parameter geven we game.ts mee
         }
         //this.bombs = [new Bomb, new Bomb...]

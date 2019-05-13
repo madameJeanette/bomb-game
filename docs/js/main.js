@@ -57,7 +57,7 @@ var Game = (function () {
         this.textfield = document.getElementsByTagName("textfield")[0];
         this.statusbar = document.getElementsByTagName("bar")[0];
         this.car = new Car();
-        for (var i = 0; i < 4; i++) {
+        for (var i = 0; i < 20; i++) {
             this.bomb.push(new Bomb(this));
         }
         this.gameLoop();

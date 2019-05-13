@@ -3,7 +3,7 @@ class Bomb {
     private posy:number
     private posx:number
 
-    private speedY: number                                                //Snelheid Y-as
+    private speedY: number                                                //Speed Y-as
     private game: Game
 
     public geklikt: boolean = false
@@ -15,7 +15,7 @@ class Bomb {
         let foreground = document.getElementsByTagName("foreground")[0]
         foreground.appendChild(this.element);
         
-        //Random Start positie bom
+        //Random Start pos bomb
         this.posy = 200
         this.posx = Math.random() * (window.innerWidth-100) //Returns a number between 0-1400
     
