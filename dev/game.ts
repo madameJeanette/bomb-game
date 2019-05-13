@@ -4,7 +4,7 @@ class Game {
     private destroyed:number = 0
     private textfield:HTMLElement
     private statusbar:HTMLElement
-    private bomb:Bomb
+    private bomb:Bomb[]
     private car:Car
     
     constructor() {
@@ -12,7 +12,7 @@ class Game {
         this.statusbar = document.getElementsByTagName("bar")[0] as HTMLElement
 
         this.car = new Car()
-        this.bomb = [new Bomb(), new Bomb(), new Bomb()]
+        this.bomb = [new Bomb(this), new Bomb(this), new Bomb(this)]
         this.gameLoop()
     }
     
