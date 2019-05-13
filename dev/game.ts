@@ -2,29 +2,60 @@ class Game {
     
     private score:number = 0
     private destroyed:number = 0
+    private moveImage:number = 0
     private textfield:HTMLElement
     private statusbar:HTMLElement
-    private bomb:Bomb[]
+    private bomb:Bomb[] = []
     private car:Car
     
     constructor() {
-        this.textfield = document.getElementsByTagName("textfield")[0] as HTMLElement
-        this.statusbar = document.getElementsByTagName("bar")[0] as HTMLElement
+        this.textfield = document.getElementsByTagName("textfield")[0] as HTMLElement //Score-Bord
+        this.statusbar = document.getElementsByTagName("bar")[0] as HTMLElement//Huisjes
 
-        this.car = new Car()
-        this.bomb = [new Bomb(this), new Bomb(this), new Bomb(this)]
+        //this.bomb = new Bomb()
+        this.car = new Car()                            //Zorgt ervoor dat de "Car"-afbeelding zichtbaar is in de game
+        
+        //Push aantal Bommen
+        for (let i = 0; i < 4; i++) {
+            this.bomb.push(new Bomb(this))              //In de parameter geven we game.ts mee
+        }
+        //this.bombs = [new Bomb, new Bomb...]
+
         this.gameLoop()
     }
     
     private gameLoop():void{
-        console.log("updating the game")
-        this.car.update()
-        requestAnimationFrame(() => this.gameLoop())
+        //console.log("updating the game")
+        this.car.update()                               //Zegt dat functie "update" van auto in de gameloop moet zitten.
+                                      
+        //Update elke bom die aangemaakt word.
+        for(let b of this.bomb){
+            //update staat in balloon.ts
+            b.update()
+
+            if(b.geklikt === true){
+                this.scorePoint()
+                b.geklikt = false
+            }
+        }
+
+        //if(this.bomb.geklikt === true)
+        //Stop game-loop als je 4 levens verloren hebt
+        if(this.destroyed <= 3){
+            requestAnimationFrame(() => this.gameLoop())    //De functie roept steeds zichzelf op.
+        }else{
+            console.log("stop")
+        }
+        
     }
 
     public destroyBuilding(){
-        this.destroyed ++
+        this.destroyed++
+
+        this.moveImage = this.moveImage - 72
         console.log("buildings destroyed " + this.destroyed)
+
+        this.statusbar.style.backgroundPosition = this.moveImage + "px"
     }
        
     public scorePoint() {
