@@ -6,8 +6,8 @@ class Car {
     private game:Game
  
         
-    constructor() {
-
+    constructor(g : Game) {
+        this.game = g
         this.element = document.createElement("car")                    //Creert de auto
         let foreground = document.getElementsByTagName("foreground")[0]
         foreground.appendChild(this.element);

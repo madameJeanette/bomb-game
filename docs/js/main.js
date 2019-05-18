@@ -33,7 +33,8 @@ var Bomb = (function () {
     return Bomb;
 }());
 var Car = (function () {
-    function Car() {
+    function Car(g) {
+        this.game = g;
         this.element = document.createElement("car");
         var foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.element);
@@ -60,7 +61,7 @@ var Game = (function () {
         this.bomb = [];
         this.textfield = document.getElementsByTagName("textfield")[0];
         this.statusbar = document.getElementsByTagName("bar")[0];
-        this.car = new Car();
+        this.car = new Car(this);
         for (var i = 0; i < 5; i++) {
             this.bomb.push(new Bomb(this));
         }

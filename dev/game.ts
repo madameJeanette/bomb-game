@@ -13,7 +13,7 @@ class Game {
         this.statusbar = document.getElementsByTagName("bar")[0] as HTMLElement//Huisjes
 
         //this.bomb = new Bomb()
-        this.car = new Car()                            //Zorgt ervoor dat de "Car"-afbeelding zichtbaar is in de game
+        this.car = new Car(this)                            //Zorgt ervoor dat de "Car"-afbeelding zichtbaar is in de game
         
         //Push aantal Bommen
         for (let i = 0; i < 5; i++) {
