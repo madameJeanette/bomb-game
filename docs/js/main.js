@@ -7,7 +7,7 @@ var Bomb = (function () {
         this.element = document.createElement("bomb");
         var foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.element);
-        this.posy = 200;
+        this.posy = -400;
         this.posx = Math.random() * (window.innerWidth - 100);
         this.speedY = (Math.random() * 5) + 1;
         this.element.addEventListener("click", function () { return _this.klikBom(); });
@@ -27,6 +27,9 @@ var Bomb = (function () {
         this.geklikt = true;
         return this.geklikt;
     };
+    Bomb.prototype.resetPosition = function () {
+        this.posy = -300;
+    };
     return Bomb;
 }());
 var Car = (function () {
@@ -34,6 +37,7 @@ var Car = (function () {
         this.element = document.createElement("car");
         var foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.element);
+        this.element.addEventListener("click", this.game.restartGame);
         this.posx = -200;
         this.posy = window.innerHeight - 200;
     }
@@ -57,7 +61,7 @@ var Game = (function () {
         this.textfield = document.getElementsByTagName("textfield")[0];
         this.statusbar = document.getElementsByTagName("bar")[0];
         this.car = new Car();
-        for (var i = 0; i < 20; i++) {
+        for (var i = 0; i < 5; i++) {
             this.bomb.push(new Bomb(this));
         }
         this.gameLoop();
@@ -89,6 +93,17 @@ var Game = (function () {
     Game.prototype.scorePoint = function () {
         this.score++;
         this.textfield.innerHTML = "Score: " + this.score;
+    };
+    Game.prototype.restartGame = function () {
+        this.score = 0;
+        this.textfield.innerHTML = "Score: " + this.score;
+        this.bomb.forEach(function (element) {
+            element.resetPosition();
+        });
+        this.destroyed = 0;
+        this.moveImage = 0;
+        this.statusbar.style.backgroundPosition = '0px';
+        this.gameLoop();
     };
     return Game;
 }());

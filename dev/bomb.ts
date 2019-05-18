@@ -16,7 +16,7 @@ class Bomb {
         foreground.appendChild(this.element);
         
         //Random Start pos bomb
-        this.posy = 200
+        this.posy = -400
         this.posx = Math.random() * (window.innerWidth-100) //Returns a number between 0-1400
     
         //Speed
@@ -51,5 +51,8 @@ class Bomb {
         //Bom is geklikt, dus voeg punt toe
         this.geklikt = true
         return this.geklikt
+    }
+    public resetPosition(){
+        this.posy = -300
     }
 }

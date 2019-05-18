@@ -16,7 +16,7 @@ class Game {
         this.car = new Car()                            //Zorgt ervoor dat de "Car"-afbeelding zichtbaar is in de game
         
         //Push aantal Bommen
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 5; i++) {
             this.bomb.push(new Bomb(this))              //In de parameter geven we game.ts mee
         }
         //this.bombs = [new Bomb, new Bomb...]
@@ -62,7 +62,18 @@ class Game {
         this.score ++
         this.textfield.innerHTML = "Score: " + this.score
     }
+    public restartGame(){
+        this.score = 0;
+        this.textfield.innerHTML = "Score: " + this.score
+        this.bomb.forEach(function(element){
+            element.resetPosition()
 
+        })
+        this.destroyed = 0;
+        this.moveImage = 0;
+        this.statusbar.style.backgroundPosition = '0px'
+        this.gameLoop()
+    }
 } 
 
 window.addEventListener("load", () => new Game())
