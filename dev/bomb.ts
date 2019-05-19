@@ -1,22 +1,24 @@
-class Bomb {
+class Bomb extends Game{
     private element: HTMLElement
     private posy:number
     private posx:number
 
-    private speedY: number                                                //Speed Y-as
+    private speedY: number                                                //Snelheid Y-as
     private game: Game
 
     public geklikt: boolean = false
 
 
-    constructor(g : Game) {
-        this.game = g
+    constructor(game : Game) {
+
+        super();
+       
         this.element = document.createElement("bomb")
         let foreground = document.getElementsByTagName("foreground")[0]
         foreground.appendChild(this.element);
         
-        //Random Start pos bomb
-        this.posy = -400
+        //Random Start positie bom
+        this.posy = 200
         this.posx = Math.random() * (window.innerWidth-100) //Returns a number between 0-1400
     
         //Speed
@@ -27,6 +29,7 @@ class Bomb {
 
         //Wanneer je op telefoon scherm klikt
         this.element.addEventListener("touchstart", ()=> this.klikBom());
+        
     }
 
     public update():void {
@@ -52,7 +55,8 @@ class Bomb {
         this.geklikt = true
         return this.geklikt
     }
+
     public resetPosition(){
-        this.posy = -300
+        this.posy = -200
     }
 }

@@ -1,17 +1,31 @@
 "use strict";
-var Bomb = (function () {
-    function Bomb(g) {
-        var _this = this;
-        this.geklikt = false;
-        this.game = g;
-        this.element = document.createElement("bomb");
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Bomb = (function (_super) {
+    __extends(Bomb, _super);
+    function Bomb(game) {
+        var _this = _super.call(this) || this;
+        _this.geklikt = false;
+        _this.element = document.createElement("bomb");
         var foreground = document.getElementsByTagName("foreground")[0];
-        foreground.appendChild(this.element);
-        this.posy = -400;
-        this.posx = Math.random() * (window.innerWidth - 100);
-        this.speedY = (Math.random() * 5) + 1;
-        this.element.addEventListener("click", function () { return _this.klikBom(); });
-        this.element.addEventListener("touchstart", function () { return _this.klikBom(); });
+        foreground.appendChild(_this.element);
+        _this.posy = 200;
+        _this.posx = Math.random() * (window.innerWidth - 100);
+        _this.speedY = (Math.random() * 5) + 1;
+        _this.element.addEventListener("click", function () { return _this.klikBom(); });
+        _this.element.addEventListener("touchstart", function () { return _this.klikBom(); });
+        return _this;
     }
     Bomb.prototype.update = function () {
         this.posy = this.posy + this.speedY;
@@ -28,19 +42,21 @@ var Bomb = (function () {
         return this.geklikt;
     };
     Bomb.prototype.resetPosition = function () {
-        this.posy = -300;
+        this.posy = -200;
     };
     return Bomb;
-}());
+}(Game));
 var Car = (function () {
     function Car(g) {
+        var _this = this;
         this.game = g;
         this.element = document.createElement("car");
         var foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.element);
-        this.element.addEventListener("click", this.game.restartGame);
         this.posx = -200;
         this.posy = window.innerHeight - 200;
+        this.element.addEventListener("click", function () { return _this.game.restartGame(); });
+        this.element.addEventListener("touchstart", function () { return _this.game.restartGame(); });
     }
     Car.prototype.update = function () {
         this.posx = this.posx + 5;
@@ -62,7 +78,7 @@ var Game = (function () {
         this.textfield = document.getElementsByTagName("textfield")[0];
         this.statusbar = document.getElementsByTagName("bar")[0];
         this.car = new Car(this);
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < 4; i++) {
             this.bomb.push(new Bomb(this));
         }
         this.gameLoop();
