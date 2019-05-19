@@ -1,12 +1,14 @@
-class Car {
-    
-    private element: HTMLElement
-    private posx:number
-    private posy:number
-    
+
+///<reference path="gameobjects.ts"/>
+
+class Car extends GameObject {
+        
     private game: Game
-    constructor(g : Game) {
-        this.game = g
+    private element: HTMLElement
+
+    constructor(posx: number, posy: number, game: Game) {
+        super(posx, posy);
+        this.game = game;
         this.element = document.createElement("car")                    //Creert de auto
         let foreground = document.getElementsByTagName("foreground")[0]
         foreground.appendChild(this.element);
