@@ -1,13 +1,14 @@
 "use strict";
 var Bomb = (function () {
-    function Bomb(game) {
+    function Bomb(g) {
         var _this = this;
         this.geklikt = false;
+        this.game = g;
         this.element = document.createElement("bomb");
         var foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.element);
         this.posy = 200;
-        this.posx = Math.random() * (window.innerWidth - 100);
+        this.posx = Math.random() * (window.innerWidth - 10);
         this.speedY = (Math.random() * 5) + 1;
         this.element.addEventListener("click", function () { return _this.klikBom(); });
         this.element.addEventListener("touchstart", function () { return _this.klikBom(); });

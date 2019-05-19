@@ -9,16 +9,15 @@ class Bomb {
     public geklikt: boolean = false
 
 
-    constructor(game : Game) {
-
-       
+    constructor(g : Game) {
+        this.game = g
         this.element = document.createElement("bomb")
         let foreground = document.getElementsByTagName("foreground")[0]
         foreground.appendChild(this.element);
         
         //Random Start positie bom
         this.posy = 200
-        this.posx = Math.random() * (window.innerWidth-100) //Returns a number between 0-1400
+        this.posx = Math.random() * (window.innerWidth-10) //Returns a number between 0-1400
     
         //Speed
         this.speedY = (Math.random() * 5) + 1
@@ -28,7 +27,6 @@ class Bomb {
 
         //Wanneer je op telefoon scherm klikt
         this.element.addEventListener("touchstart", ()=> this.klikBom());
-        
     }
 
     public update():void {
