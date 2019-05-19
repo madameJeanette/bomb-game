@@ -1,4 +1,4 @@
-class Bomb extends Game{
+class Bomb {
     private element: HTMLElement
     private posy:number
     private posx:number
@@ -11,7 +11,6 @@ class Bomb extends Game{
 
     constructor(game : Game) {
 
-        super();
        
         this.element = document.createElement("bomb")
         let foreground = document.getElementsByTagName("foreground")[0]

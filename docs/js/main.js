@@ -1,31 +1,16 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Bomb = (function (_super) {
-    __extends(Bomb, _super);
+var Bomb = (function () {
     function Bomb(game) {
-        var _this = _super.call(this) || this;
-        _this.geklikt = false;
-        _this.element = document.createElement("bomb");
+        var _this = this;
+        this.geklikt = false;
+        this.element = document.createElement("bomb");
         var foreground = document.getElementsByTagName("foreground")[0];
-        foreground.appendChild(_this.element);
-        _this.posy = 200;
-        _this.posx = Math.random() * (window.innerWidth - 100);
-        _this.speedY = (Math.random() * 5) + 1;
-        _this.element.addEventListener("click", function () { return _this.klikBom(); });
-        _this.element.addEventListener("touchstart", function () { return _this.klikBom(); });
-        return _this;
+        foreground.appendChild(this.element);
+        this.posy = 200;
+        this.posx = Math.random() * (window.innerWidth - 100);
+        this.speedY = (Math.random() * 5) + 1;
+        this.element.addEventListener("click", function () { return _this.klikBom(); });
+        this.element.addEventListener("touchstart", function () { return _this.klikBom(); });
     }
     Bomb.prototype.update = function () {
         this.posy = this.posy + this.speedY;
@@ -45,7 +30,7 @@ var Bomb = (function (_super) {
         this.posy = -200;
     };
     return Bomb;
-}(Game));
+}());
 var Car = (function () {
     function Car(g) {
         var _this = this;
