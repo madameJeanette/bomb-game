@@ -87,6 +87,8 @@ var Game = (function () {
         this.destroyed = 0;
         this.moveImage = 0;
         this.bomb = [];
+    }
+    Game.prototype.initGame = function () {
         this.textfield = document.getElementsByTagName("textfield")[0];
         this.statusbar = document.getElementsByTagName("bar")[0];
         this.car = new Car(0, 0, this);
@@ -94,7 +96,13 @@ var Game = (function () {
             this.bomb.push(new Bomb(0, 0, this));
         }
         this.gameLoop();
-    }
+    };
+    Game.getInstance = function () {
+        if (!this.instance) {
+            this.instance = new this();
+        }
+        return this.instance;
+    };
     Game.prototype.gameLoop = function () {
         var _this = this;
         this.car.update();
@@ -136,5 +144,8 @@ var Game = (function () {
     };
     return Game;
 }());
-window.addEventListener("load", function () { return new Game(); });
+window.addEventListener("load", function () {
+    var gameOne = Game.getInstance();
+    gameOne.initGame();
+});
 //# sourceMappingURL=main.js.map

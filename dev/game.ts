@@ -7,8 +7,14 @@ class Game {
     private statusbar:HTMLElement
     private bomb:Bomb[] = []
     private car:Car
+    private static instance: Game      
     
-    constructor() {
+
+    private constructor() {
+        
+    }
+    public initGame(){
+       
         this.textfield = document.getElementsByTagName("textfield")[0] as HTMLElement //Score-Bord
         this.statusbar = document.getElementsByTagName("bar")[0] as HTMLElement//Huisjes
 
@@ -22,8 +28,15 @@ class Game {
         //this.bombs = [new Bomb, new Bomb...]
 
         this.gameLoop()
+
     }
-    
+
+    public static getInstance() {
+        if (! this.instance) {
+            this.instance = new this();
+        }
+        return this.instance;
+    }
     private gameLoop():void{
         //console.log("updating the game")
         this.car.update()                               //Zegt dat functie "update" van auto in de gameloop moet zitten.
@@ -76,4 +89,7 @@ class Game {
     }
 } 
 
-window.addEventListener("load", () => new Game())
+window.addEventListener("load", () => {
+    let gameOne = Game.getInstance()
+    gameOne.initGame()
+})
