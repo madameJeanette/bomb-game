@@ -13,7 +13,7 @@ class Game {
     private constructor() {
         
     }
-    public initGame(){
+    public initGame(){  //gameloop functie voor singleton
        
         this.textfield = document.getElementsByTagName("textfield")[0] as HTMLElement //Score-Bord
         this.statusbar = document.getElementsByTagName("bar")[0] as HTMLElement//Huisjes
@@ -25,8 +25,7 @@ class Game {
         for (let i = 0; i < 4; i++) {
             this.bomb.push(new Bomb(0,0, this))              //In de parameter geven we game.ts mee
         }
-        //this.bombs = [new Bomb, new Bomb...]
-
+    
         this.gameLoop()
 
     }
@@ -85,7 +84,7 @@ class Game {
         this.destroyed = 0;
         this.moveImage = 0;
         this.statusbar.style.backgroundPosition = '0px'
-        this.gameLoop()
+      //  this.gameLoop()
     }
 } 
 
