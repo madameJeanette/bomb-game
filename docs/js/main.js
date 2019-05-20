@@ -1,17 +1,8 @@
 "use strict";
-class GameObject {
-    constructor(posx, posy) {
-        this.posx = posx;
-        this.posy = posy;
-    }
-    update() {
-    }
-}
-class Bomb extends GameObject {
-    constructor(posx, posy, game) {
-        super(posx, posy);
+class Bomb extends HTMLElement {
+    constructor() {
+        super();
         this.geklikt = false;
-        this.game = game;
         this.element = document.createElement("bomb");
         let foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.element);
@@ -39,11 +30,10 @@ class Bomb extends GameObject {
         this.posy = -200;
     }
 }
-class Car extends GameObject {
-    constructor(posx, posy, game) {
-        super(posx, posy);
-        this.game = game;
-        this.element = document.createElement("car");
+class Car extends HTMLElement {
+    constructor() {
+        super();
+        document.body.appendChild(this);
         let foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.element);
         this.posx = -200;
@@ -61,6 +51,7 @@ class Car extends GameObject {
         this.element.style.transform = `translate(${this.posx}px, ${this.posy}px)`;
     }
 }
+window.customElements.define("car-component", Car);
 class Game {
     constructor() {
         this.score = 0;
@@ -71,9 +62,9 @@ class Game {
     initGame() {
         this.textfield = document.getElementsByTagName("textfield")[0];
         this.statusbar = document.getElementsByTagName("bar")[0];
-        this.car = new Car(0, 0, this);
+        this.car = new Car();
         for (let i = 0; i < 4; i++) {
-            this.bomb.push(new Bomb(0, 0, this));
+            this.bomb.push(new Bomb());
         }
         this.gameLoop();
     }
@@ -118,6 +109,7 @@ class Game {
         this.destroyed = 0;
         this.moveImage = 0;
         this.statusbar.style.backgroundPosition = '0px';
+        this.initGame();
     }
 }
 window.addEventListener("load", () => {

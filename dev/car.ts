@@ -1,15 +1,18 @@
 
-///<reference path="gameobjects.ts"/>
 
-class Car extends GameObject {
+class Car extends HTMLElement {  //Creert de auto
         
     private game: Game
     private element: HTMLElement
+    private posx:number
+    private posy:number
 
-    constructor(posx: number, posy: number, game: Game) {
-        super(posx, posy);
-        this.game = game;
-        this.element = document.createElement("car")                    //Creert de auto
+    constructor() {
+        super();
+       
+        // this.posx = this.posx
+        // this.posy = this.posy      
+        document.body.appendChild(this);    
         let foreground = document.getElementsByTagName("foreground")[0]
         foreground.appendChild(this.element);
         
@@ -39,4 +42,6 @@ class Car extends GameObject {
 
         this.element.style.transform = `translate(${this.posx}px, ${this.posy}px)`
     }
+
 }
+window.customElements.define("car-component", Car);

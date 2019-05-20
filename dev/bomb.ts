@@ -1,16 +1,17 @@
-///<reference path="gameobjects.ts"/>
 
-class Bomb extends GameObject {
+
+class Bomb extends HTMLElement {
     private element: HTMLElement
     private speedY: number                                                //Snelheid Y-as
     private game: Game
+    private posx:number
+    private posy:number
 
     public geklikt: boolean = false
 
 
-    constructor(posx: number, posy: number, game: Game) {
-        super(posx, posy);
-        this.game = game;
+    constructor() {
+        super();
         this.element = document.createElement("bomb")
         let foreground = document.getElementsByTagName("foreground")[0]
         foreground.appendChild(this.element);

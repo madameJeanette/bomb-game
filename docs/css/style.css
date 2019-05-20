@@ -26,10 +26,11 @@ ui {
     pointer-events: none;
 }
 
-car {
+car, car-component {
     width:224px; height:138px;
     background-image: url(../images/car.png);
     cursor: pointer;
+    position: absolute;
 }
 
 bar {
@@ -49,7 +50,7 @@ textfield {
 
 
 
-bomb {
+bomb, bomb-component {
     width:142px; height:224px;
     background-image: url(../images/bomb.png);
     cursor: pointer;

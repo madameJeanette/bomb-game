@@ -19,11 +19,11 @@ class Game {
         this.statusbar = document.getElementsByTagName("bar")[0] as HTMLElement//Huisjes
 
         //this.bomb = new Bomb()
-        this.car = new Car(0,0, this)                            //Zorgt ervoor dat de "Car"-afbeelding zichtbaar is in de game
+        this.car = new Car()                            //Zorgt ervoor dat de "Car"-afbeelding zichtbaar is in de game
         
         //Push aantal Bommen
         for (let i = 0; i < 4; i++) {
-            this.bomb.push(new Bomb(0,0, this))              //In de parameter geven we game.ts mee
+            this.bomb.push(new Bomb())              //In de parameter geven we game.ts mee
         }
     
         this.gameLoop()
@@ -85,6 +85,7 @@ class Game {
         this.moveImage = 0;
         this.statusbar.style.backgroundPosition = '0px'
       //  this.gameLoop()
+      this.initGame()
     }
 } 
 
