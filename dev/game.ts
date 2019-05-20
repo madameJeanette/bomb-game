@@ -84,8 +84,8 @@ class Game {
         this.destroyed = 0;
         this.moveImage = 0;
         this.statusbar.style.backgroundPosition = '0px'
-      //  this.gameLoop()
-      this.initGame()
+        this.gameLoop()
+    
     }
 } 
 
