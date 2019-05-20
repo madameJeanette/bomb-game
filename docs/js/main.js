@@ -1,113 +1,91 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var GameObject = (function () {
-    function GameObject(posx, posy) {
+class GameObject {
+    constructor(posx, posy) {
         this.posx = posx;
         this.posy = posy;
     }
-    GameObject.prototype.update = function () {
-    };
-    return GameObject;
-}());
-var Bomb = (function (_super) {
-    __extends(Bomb, _super);
-    function Bomb(posx, posy, game) {
-        var _this = _super.call(this, posx, posy) || this;
-        _this.geklikt = false;
-        _this.game = game;
-        _this.element = document.createElement("bomb");
-        var foreground = document.getElementsByTagName("foreground")[0];
-        foreground.appendChild(_this.element);
-        _this.posy = 200;
-        _this.posx = Math.random() * (window.innerWidth - 10);
-        _this.speedY = (Math.random() * 5) + 1;
-        _this.element.addEventListener("click", function () { return _this.klikBom(); });
-        _this.element.addEventListener("touchstart", function () { return _this.klikBom(); });
-        return _this;
+    update() {
     }
-    Bomb.prototype.update = function () {
+}
+class Bomb extends GameObject {
+    constructor(posx, posy, game) {
+        super(posx, posy);
+        this.geklikt = false;
+        this.game = game;
+        this.element = document.createElement("bomb");
+        let foreground = document.getElementsByTagName("foreground")[0];
+        foreground.appendChild(this.element);
+        this.posy = 200;
+        this.posx = Math.random() * (window.innerWidth - 10);
+        this.speedY = (Math.random() * 5) + 1;
+        this.element.addEventListener("click", () => this.klikBom());
+        this.element.addEventListener("touchstart", () => this.klikBom());
+    }
+    update() {
         this.posy = this.posy + this.speedY;
-        var h = window.innerHeight;
+        let h = window.innerHeight;
         if (this.posy >= h - 200) {
             this.posy = -300;
             this.game.destroyBuilding();
         }
-        this.element.style.transform = "translate(" + this.posx + "px, " + this.posy + "px)";
-    };
-    Bomb.prototype.klikBom = function () {
+        this.element.style.transform = `translate(${this.posx}px, ${this.posy}px)`;
+    }
+    klikBom() {
         this.posy = (Math.random() + 1) * -500;
         this.geklikt = true;
         return this.geklikt;
-    };
-    Bomb.prototype.resetPosition = function () {
-        this.posy = -200;
-    };
-    return Bomb;
-}(GameObject));
-var Car = (function (_super) {
-    __extends(Car, _super);
-    function Car(posx, posy, game) {
-        var _this = _super.call(this, posx, posy) || this;
-        _this.game = game;
-        _this.element = document.createElement("car");
-        var foreground = document.getElementsByTagName("foreground")[0];
-        foreground.appendChild(_this.element);
-        _this.posx = -200;
-        _this.posy = window.innerHeight - 200;
-        _this.element.addEventListener("click", function () { return _this.game.restartGame(); });
-        _this.element.addEventListener("touchstart", function () { return _this.game.restartGame(); });
-        return _this;
     }
-    Car.prototype.update = function () {
+    resetPosition() {
+        this.posy = -200;
+    }
+}
+class Car extends GameObject {
+    constructor(posx, posy, game) {
+        super(posx, posy);
+        this.game = game;
+        this.element = document.createElement("car");
+        let foreground = document.getElementsByTagName("foreground")[0];
+        foreground.appendChild(this.element);
+        this.posx = -200;
+        this.posy = window.innerHeight - 200;
+        this.element.addEventListener("click", () => this.game.restartGame());
+        this.element.addEventListener("touchstart", () => this.game.restartGame());
+    }
+    update() {
         this.posx = this.posx + 5;
-        var w = window.innerWidth;
+        let w = window.innerWidth;
         if (this.posx >= w) {
             console.log("einde");
             this.posx = -200;
         }
-        this.element.style.transform = "translate(" + this.posx + "px, " + this.posy + "px)";
-    };
-    return Car;
-}(GameObject));
-var Game = (function () {
-    function Game() {
+        this.element.style.transform = `translate(${this.posx}px, ${this.posy}px)`;
+    }
+}
+class Game {
+    constructor() {
         this.score = 0;
         this.destroyed = 0;
         this.moveImage = 0;
         this.bomb = [];
     }
-    Game.prototype.initGame = function () {
+    initGame() {
         this.textfield = document.getElementsByTagName("textfield")[0];
         this.statusbar = document.getElementsByTagName("bar")[0];
         this.car = new Car(0, 0, this);
-        for (var i = 0; i < 4; i++) {
+        for (let i = 0; i < 4; i++) {
             this.bomb.push(new Bomb(0, 0, this));
         }
         this.gameLoop();
-    };
-    Game.getInstance = function () {
+    }
+    static getInstance() {
         if (!this.instance) {
             this.instance = new this();
         }
         return this.instance;
-    };
-    Game.prototype.gameLoop = function () {
-        var _this = this;
+    }
+    gameLoop() {
         this.car.update();
-        for (var _i = 0, _a = this.bomb; _i < _a.length; _i++) {
-            var b = _a[_i];
+        for (let b of this.bomb) {
             b.update();
             if (b.geklikt === true) {
                 this.scorePoint();
@@ -115,23 +93,23 @@ var Game = (function () {
             }
         }
         if (this.destroyed <= 3) {
-            requestAnimationFrame(function () { return _this.gameLoop(); });
+            requestAnimationFrame(() => this.gameLoop());
         }
         else {
             console.log("stop");
         }
-    };
-    Game.prototype.destroyBuilding = function () {
+    }
+    destroyBuilding() {
         this.destroyed++;
         this.moveImage = this.moveImage - 72;
         console.log("buildings destroyed " + this.destroyed);
         this.statusbar.style.backgroundPosition = this.moveImage + "px";
-    };
-    Game.prototype.scorePoint = function () {
+    }
+    scorePoint() {
         this.score++;
         this.textfield.innerHTML = "Score: " + this.score;
-    };
-    Game.prototype.restartGame = function () {
+    }
+    restartGame() {
         this.score = 0;
         this.textfield.innerHTML = "Score: " + this.score;
         this.bomb.forEach(function (element) {
@@ -140,11 +118,10 @@ var Game = (function () {
         this.destroyed = 0;
         this.moveImage = 0;
         this.statusbar.style.backgroundPosition = '0px';
-    };
-    return Game;
-}());
-window.addEventListener("load", function () {
-    var gameOne = Game.getInstance();
+    }
+}
+window.addEventListener("load", () => {
+    let gameOne = Game.getInstance();
     gameOne.initGame();
 });
 //# sourceMappingURL=main.js.map
