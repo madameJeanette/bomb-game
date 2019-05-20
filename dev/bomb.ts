@@ -1,5 +1,4 @@
 
-
 class Bomb extends HTMLElement {
     private element: HTMLElement
     private speedY: number                                                //Snelheid Y-as

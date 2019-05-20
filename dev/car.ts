@@ -1,5 +1,4 @@
 
-
 class Car extends HTMLElement {  //Creert de auto
         
     private game: Game
